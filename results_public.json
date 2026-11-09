@@ -1,0 +1,29 @@
+{
+  "description": "Post-hoc sensitivity. low_count: model-judge agreement on usable answers excluding all currently flagged cases. high_count: low_count plus all deferred cases if each becomes usable. n: all 90 scheduled episodes, including a truncated response. Bounds assume unflagged classifications are correct; hidden judge errors may remain. These are not confidence intervals or strict bounds on true accuracy.",
+  "conditions": [
+    {
+      "name": "B0 Исходный",
+      "low_count": 58,
+      "high_count": 77,
+      "n": 90
+    },
+    {
+      "name": "B1 + семантика",
+      "low_count": 68,
+      "high_count": 82,
+      "n": 90
+    },
+    {
+      "name": "B2 + карта",
+      "low_count": 66,
+      "high_count": 83,
+      "n": 90
+    },
+    {
+      "name": "B3 + контекст",
+      "low_count": 69,
+      "high_count": 83,
+      "n": 90
+    }
+  ]
+}
