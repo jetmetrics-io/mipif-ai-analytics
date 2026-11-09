@@ -20,17 +20,7 @@ def speaker() -> str:
 
 
 def dashboard() -> str:
-    return '''<div class="dashboard-scene">
-      <div class="dashboard">
-        <div class="db-top"><span class="db-mark">J</span><strong>Картина девелопера</strong><span class="db-tag">ОБЗОР</span></div>
-        <div class="db-body"><div class="db-label">ПРОДАЖИ И ДЕНЬГИ</div>
-          <div class="db-kpis"><div><span>ДДУ</span><b>—</b></div><div><span>План / факт</span><b>—</b></div><div><span>Поступления</span><b>—</b></div></div>
-          <div class="db-grid"><div class="db-chart"><strong>Динамика продаж</strong><div class="db-empty"><span></span><span></span><span></span><span></span></div></div>
-          <div class="db-side"><strong>Воронка продаж</strong><i></i><i></i><i></i><i></i></div></div>
-        </div>
-        <div class="db-overlay"><b>Место для демонстрации</b><span>Соберём дашборд и замерим время</span></div>
-      </div><div class="db-caption"><span>Первый макет</span><i>→</i><span>Подключение данных</span><i>→</i><span>Проверка и доработка</span></div>
-      </div>'''
+    return (HERE / 'assets' / 'dashboard' / 'dashboard.html').read_text(encoding='utf-8')
 
 
 LABELS = [
@@ -178,7 +168,7 @@ def first_step() -> str:
 SLIDES = [
     {'sec': 0, 'type': 'cover', 'title': 'ИИ построит дашборд. Что дальше?',
      'lead': 'Где ИИ помогает девелоперу — и что нужно для надёжной аналитики', 'visual': speaker()},
-    {'sec': 0, 'title': 'Первый дашборд теперь собирается быстрее',
+    {'sec': 0, 'type': 'dashboard', 'title': 'Первый дашборд теперь собирается быстрее',
      'lead': 'Покажем контраст на примере отчёта для руководителя девелопера.', 'visual': dashboard()},
     {'sec': 1, 'type': 'wide', 'title': 'Раньше: больше усилий уходило на сборку',
      'lead': 'Подключение, графики и отчётность занимали значительную часть работы.', 'visual': effort_chart(False)},

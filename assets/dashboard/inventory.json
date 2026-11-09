@@ -1,0 +1,8 @@
+{
+  "as_of": "2026-10-31",
+  "projects": {
+    "А": {"total": 480, "sold": 292, "awaiting_registration": 9, "reserved": 20, "available": 139, "not_released": 20},
+    "Б": {"total": 400, "sold": 147, "awaiting_registration": 6, "reserved": 22, "available": 205, "not_released": 20},
+    "В": {"total": 240, "sold": 44, "awaiting_registration": 4, "reserved": 15, "available": 157, "not_released": 20}
+  }
+}

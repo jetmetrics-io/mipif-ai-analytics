@@ -75,6 +75,15 @@ font_css = f"""
 base_css = (ASSETS / "base.css").read_text(encoding="utf-8")
 extra_css = (HERE / "overrides.css").read_text(encoding="utf-8")
 js = (HERE / "app.js").read_text(encoding="utf-8")
+dashboard_dir = ASSETS / "dashboard"
+dashboard_css = (dashboard_dir / "dashboard.css").read_text(encoding="utf-8")
+dashboard_js = (dashboard_dir / "dashboard.js").read_text(encoding="utf-8")
+dashboard_sources = "\n".join(
+    f'<script type="application/json" id="od-source-{name}">'
+    + json.dumps(json.loads((dashboard_dir / (name + ".json")).read_text(encoding="utf-8")), ensure_ascii=False).replace("</", "<\\/")
+    + '</script>'
+    for name in ("crm", "ddu", "escrow", "inventory", "plans")
+)
 logo = (ASSETS / "jetmetrics.svg").read_text(encoding="utf-8")
 
 parts = []
@@ -120,7 +129,7 @@ page = f"""<!doctype html>
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#F6F8FA">
 <title>ИИ в аналитике и отчётности девелопера · JetMetrics</title>
-<style>{font_css}\n{base_css}\n{extra_css}</style>
+<style>{font_css}\n{base_css}\n{extra_css}\n{dashboard_css}</style>
 </head>
 <body class="client">
 <div class="app">
@@ -148,7 +157,9 @@ page = f"""<!doctype html>
   </div>
 </div>
 <script type="application/json" id="data">{data}</script>
+{dashboard_sources}
 <script>{js}</script>
+<script>{dashboard_js}</script>
 </body></html>
 """
 assert len(SLIDES) == 15

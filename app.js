@@ -149,7 +149,7 @@
     fitStage();
   });
   document.addEventListener("keydown", event => {
-    if (event.target.closest("input,textarea,[contenteditable]")) return;
+    if (event.target.closest("input,textarea,select,[contenteditable],.owner-dashboard button")) return;
     if (["ArrowRight","PageDown"," "].includes(event.key)) { event.preventDefault(); go(current + 1); }
     else if (["ArrowLeft","PageUp"].includes(event.key)) { event.preventDefault(); go(current - 1); }
     else if (event.key === "Home") go(0);
@@ -160,8 +160,8 @@
   });
   let touchX = null;
   stage.addEventListener("touchstart", event => {
-    // На телефоне график прокручивается горизонтально, не перелистывая слайд.
-    const chart = event.target.closest(".effort");
+    // На телефоне широкие графики прокручиваются, не перелистывая слайд.
+    const chart = event.target.closest(".effort,.od-chart");
     touchX = chart && chart.scrollWidth > chart.clientWidth ? null : event.changedTouches[0].clientX;
   }, {passive:true});
   stage.addEventListener("touchend", event => {
