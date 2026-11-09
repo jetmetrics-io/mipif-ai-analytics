@@ -61,6 +61,22 @@ def numbers(items: list[tuple[str, str, str]]) -> str:
     return f'<div class="sc sc-count n{len(items)}">{"".join(out)}</div>'
 
 
+def speaker_intro() -> str:
+    portrait = base64.b64encode((ASSETS / "dmitry.jpg").read_bytes()).decode("ascii")
+    return (
+        '<div class="sc speaker-intro">'
+        '<div class="speaker-card anim" style="--d:.12s">'
+        f'<img class="speaker-photo" src="data:image/jpeg;base64,{portrait}" alt="Дмитрий Некрасов">'
+        '<div class="speaker-details"><div class="speaker-name">Дмитрий Некрасов</div>'
+        '<div class="speaker-role">Сооснователь JetMetrics</div>'
+        '<div class="speaker-focus">Карты метрик, BI и обучение аналитике</div></div></div>'
+        '<div class="speaker-proof anim" style="--d:.25s">'
+        '<div class="speaker-proof-number">19 000+</div>'
+        '<div class="speaker-proof-text">скачиваний карт метрик JetMetrics<br>в 131 стране</div>'
+        '</div></div>'
+    )
+
+
 def grouped_metrics() -> str:
     groups = [
         ("Продажи", ["ДДУ", "План / факт", "Свободные квартиры"]),
@@ -119,8 +135,8 @@ SLIDES = [
     {
         "sec": 0, "type": "cover",
         "title": "ИИ соберёт отчёт. А можно ли по нему принимать решения?",
-        "lead": "Дмитрий Некрасов · JetMetrics",
-        "visual": steps([("Данные", "", "info"), ("Показатели", "", "good"), ("Решения", "", "good")]),
+        "lead": "Дмитрий Некрасов",
+        "visual": speaker_intro(),
     },
     {
         "sec": 0, "title": "Куда смещаются усилия",
@@ -252,7 +268,7 @@ for i, sl in enumerate(SLIDES):
     if kind == "cover":
         content = (
             f'<div class="cover-brand">{logo}</div><div class="cover-kicker">КАРТИНА ДЛЯ РУКОВОДИТЕЛЯ</div>'
-            f'<h1>{e(sl["title"])}</h1><p class="lead">{e(sl["lead"])}</p>'
+            f'<h1>{e(sl["title"])}</h1>'
         )
     else:
         eyebrow = f'<div class="eyebrow"><span class="sec">{e(SECTIONS[sl["sec"]])}</span></div>'

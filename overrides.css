@@ -9,6 +9,17 @@
   .sc-card .x,.sc-step .x,.sc-num .x{font-size:clamp(.875rem,1.15vw,1.15rem)}
 }
 .brand .jm-logo{max-width:172px}
+.speaker-intro{display:flex;flex-direction:column;gap:14px}
+.speaker-card,.speaker-proof{display:flex;align-items:center;gap:24px;border-radius:var(--jm-r-lg);padding:24px}
+.speaker-card{background:var(--jm-surface);border:1px solid var(--jm-line);box-shadow:var(--jm-e2)}
+.speaker-photo{display:block;width:136px;height:136px;object-fit:cover;border-radius:var(--jm-r-md);flex:none}
+.speaker-details{min-width:0}
+.speaker-name{font-weight:700;font-size:clamp(1.25rem,1.8vw,1.7rem);line-height:1.2;color:var(--jm-ink)}
+.speaker-role{margin-top:6px;font-weight:600;font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.3;color:var(--jm-green-deep)}
+.speaker-focus{margin-top:8px;font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.4;color:var(--jm-text)}
+.speaker-proof{background:var(--jm-green-tint);color:var(--jm-green-deep)}
+.speaker-proof-number{font:700 clamp(2rem,3.1vw,3rem)/1 var(--jm-font-mono);white-space:nowrap}
+.speaker-proof-text{font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.35;font-weight:600}
 .shift-flow{display:grid;grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr);align-items:stretch;gap:12px}
 .shift-flow .sc-cards{grid-template-columns:minmax(0,1fr)}
 .shift-flow .sc-card{height:100%}
@@ -71,6 +82,9 @@ body.presenting .metric-group-name,body.presenting .metric-pill{font-size:clamp(
 body.presenting .slide[data-i="10"] .sc-step .t{font-size:clamp(1.25rem,1.6vw,1.5rem)}
 body.presenting .tree-head,body.presenting .tree-next,body.presenting .other-factors,body.presenting .factor,body.presenting .sc-foot,body.presenting .contract-note,body.presenting .context-note,body.presenting .test-note,body.presenting .case-sources,body.presenting .causal-legend{font-size:clamp(1.1rem,1.5vw,1.35rem)}
 body.presenting .layer-label{font-size:clamp(.95rem,1.25vw,1.2rem)}
+body.presenting .speaker-name{font-size:clamp(1.55rem,2.2vw,2.1rem)}
+body.presenting .speaker-role,body.presenting .speaker-focus,body.presenting .speaker-proof-text{font-size:clamp(1.15rem,1.6vw,1.5rem)}
+body.presenting .speaker-proof-number{font-size:clamp(2.4rem,4vw,4rem)}
 body.presenting .foot{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);z-index:10;opacity:0;transition:opacity .2s;padding:8px 14px;background:rgba(246,248,250,.95);border:1px solid var(--jm-line);border-radius:var(--jm-r-md)}
 body.presenting .foot:hover,body.presenting .foot:focus-within{opacity:1}
 body.presenting .end-present{display:inline-flex}
@@ -79,6 +93,12 @@ body.presenting .end-present{display:inline-flex}
   .foot{width:100%!important}
   .vis{height:auto;min-height:52vh}
   .sc-wrap{position:relative;inset:auto;min-height:52vh;overflow:visible}
+  .speaker-card,.speaker-proof{gap:14px;padding:16px}
+  .speaker-photo{width:96px;height:96px}
+  .speaker-name{font-size:1.15rem}
+  .speaker-role{font-size:1rem}
+  .speaker-focus,.speaker-proof-text{font-size:.95rem}
+  .speaker-proof-number{font-size:2rem}
   .slide[data-i="3"] .sc-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
   .slide[data-i="9"] .sc-cards{grid-template-columns:1fr}
   .slide[data-i="14"] .sc-steps{grid-template-columns:1fr}
@@ -111,6 +131,15 @@ body.presenting .end-present{display:inline-flex}
   body.presenting .deck{height:100%;overflow:auto}
   body.presenting .slides{height:auto!important}
   body.presenting .foot{position:sticky;left:auto;transform:none;opacity:1;bottom:0}
+}
+@media (max-width:380px){
+  .speaker-photo{width:72px;height:72px}
+  .speaker-card{gap:12px;padding:12px}
+  .speaker-proof{display:block}
+  .speaker-proof-text{margin-top:8px}
+  body.presenting .speaker-name{font-size:1.2rem}
+  body.presenting .speaker-role,body.presenting .speaker-focus,body.presenting .speaker-proof-text{font-size:1rem}
+  body.presenting .speaker-proof-number{font-size:2rem}
 }
 @media print{
   html,body{height:auto;overflow:visible;background:white}
