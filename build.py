@@ -17,6 +17,7 @@ def icon(name: str) -> str:
     text = (ASSETS / "icons" / (name + ".svg")).read_text(encoding="utf-8")
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S).strip()
     text = re.sub(r"<svg[^>]*>", lambda m: re.sub(r'\s(width|height|class)="[^"]*"', "", m.group()), text, count=1)
+    text = re.sub(r"[ \t]+(?=\n)", "", text)
     return text.replace('stroke-width="2"', 'stroke-width="1.75"').replace("<svg", '<svg class="ic" aria-hidden="true"', 1)
 
 
@@ -60,19 +61,34 @@ def numbers(items: list[tuple[str, str, str]]) -> str:
     return f'<div class="sc sc-count n{len(items)}">{"".join(out)}</div>'
 
 
+def grouped_metrics() -> str:
+    groups = [
+        ("Продажи", ["ДДУ", "План / факт", "Свободные квартиры"]),
+        ("Спрос", ["Обращения", "Конверсия когорты"]),
+        ("Деньги", ["Сумма ДДУ", "Поступления на эскроу"]),
+    ]
+    return '<div class="sc grouped-metrics">' + "".join(
+        f'<div class="metric-group anim" style="--d:{.12+i*.12:.2f}s">'
+        f'<div class="metric-group-name">{e(name)}</div><div class="metric-group-items">'
+        + "".join(f'<div class="metric-pill">{e(item)}</div>' for item in items)
+        + '</div></div>' for i, (name, items) in enumerate(groups)
+    ) + '</div>'
+
+
 def metric_tree() -> str:
     nodes = [
         ("Проект А", "−5"), ("Проект Б", "−25"), ("Проект В", "−20")
     ]
     kids = "".join(
-        f'<li><div class="tn anim" style="--d:{.3+i*.12:.2f}s">{e(label)}<b>{e(value)}</b></div></li>'
+        f'<li><div class="tn {"tree-focus " if label == "Проект Б" else ""}anim" style="--d:{.3+i*.12:.2f}s">{e(label)}<b>{e(value)}</b></div></li>'
         for i, (label, value) in enumerate(nodes)
     )
     return (
         '<div class="sc sc-trees"><div class="sc-tree">'
-        '<div class="tree-head">План 400 <span>Факт 350</span></div>'
+        '<div class="tree-head"><span>План <b>400</b></span><span>Факт <b>350</b></span></div>'
         '<ul class="root"><li><div class="tn anim" style="--d:.12s">−50 ДДУ</div>'
-        f'<ul>{kids}</ul></li></ul></div></div>'
+        f'<ul>{kids}</ul></li></ul>'
+        '<div class="tree-next">Дальше: спрос и конверсия по когортам</div></div></div>'
     )
 
 
@@ -84,10 +100,18 @@ def map_hypotheses() -> str:
             row.append(f'<div class="sc-arrow causal anim" style="--d:{.2+i*.16:.2f}s">{icon("arrow-right")}</div>')
     factors = "".join(f'<span class="factor">{e(x)}</span>' for x in ["Ипотека", "Цена", "Ассортимент"])
     return (
-        '<div class="sc causal-map"><div class="sc-steps">'
+        '<div class="sc causal-map"><div class="layer-label">Причинный слой</div>'
+        '<div class="other-factors">Другие возможные влияния</div>'
+        + f'<div class="factor-row">{factors}</div>'
+        + '<svg class="hypothesis-links" viewBox="0 0 600 54" preserveAspectRatio="none" aria-hidden="true">'
+        '<defs><marker id="hyp-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">'
+        '<path d="M0 0 L8 4 L0 8" fill="none" stroke="currentColor" stroke-width="1.5"/></marker></defs>'
+        '<path d="M100 0 V17 H300 M300 0 V17 M500 0 V17 H300"/>'
+        '<path d="M300 17 V50" marker-end="url(#hyp-arrow)"/>'
+        '<path d="M300 17 H500 V50" marker-end="url(#hyp-arrow)"/>'
+        '</svg><div class="sc-steps">'
         + "".join(row)
-        + '</div><div class="other-factors">Другие возможные влияния</div>'
-        + f'<div class="factor-row">{factors}</div></div>'
+        + '</div><div class="causal-legend">Пунктир — гипотезы, которые нужно проверить</div></div>'
     )
 
 
@@ -100,54 +124,54 @@ SLIDES = [
     },
     {
         "sec": 0, "title": "Куда смещаются усилия",
-        "lead": "Быстрее получаем первый отчёт. Больше внимания уделяем смыслу и решениям.",
-        "visual": cards([
-            ("Меньше ручной сборки", "Данные, графики, отчёты", "layout-dashboard", "mute"),
-            ("Больше внимания смыслу", "Определения, проверка, решения", "shield-check", "good"),
-        ], 2),
+        "lead": "Первый отчёт дешевеет. Больше внимания — смыслу и решениям.",
+        "visual": '<div class="sc shift-flow">'
+                  + cards([("Меньше ручной сборки", "Графики и отчёты", "layout-dashboard", "mute")], 1)
+                  + f'<div class="sc-arrow shift-arrow">{icon("arrow-right")}</div>'
+                  + cards([("Больше внимания смыслу", "Определения, проверка, решения", "shield-check", "good")], 1)
+                  + '</div>',
     },
     {
         "sec": 0, "title": "Один вопрос собственника",
         "lead": "Почему не выполнен план продаж и что делать?",
         "visual": numbers([("3", "проекта", "good"), ("5", "корпусов", "info"), ("1 120", "квартир", "good")])
-                  + '<div class="sc-foot case-sources">CRM · договоры · план · эскроу</div>',
+                  + '<div class="case-sources"><span>CRM</span><span>ДДУ</span><span>План</span><span>Эскроу</span></div>',
     },
     {
         "sec": 1, "title": "Какая картина нужна руководителю",
         "lead": "Семь показателей помогают увидеть продажи, спрос и деньги.",
-        "visual": cards([
-            ("ДДУ", "", "", "good"), ("План / факт", "", "", "info"),
-            ("Свободные квартиры", "", "", "good"), ("Обращения", "", "", "info"),
-            ("Конверсия когорты", "", "", "info"), ("Сумма ДДУ", "", "", "fix"),
-            ("Поступления на эскроу", "", "", "fix"),
-        ], 2),
+        "visual": grouped_metrics(),
     },
     {
         "sec": 1, "title": "ИИ помогает с первым отчётом",
-        "lead": "При доступных и подготовленных данных первый результат можно получить быстрее.",
+        "lead": "При подготовленных данных быстрее получаем отчёт и регулярную сводку.",
         "visual": cards([
-            ("Запрос", "Черновик расчёта", "database", "info"),
-            ("График", "Первое представление", "layout-dashboard", "good"),
-            ("Сводка", "Динамика и отклонения", "sparkles", "fix"),
+            ("Запрос", "План-факт по проектам", "database", "info"),
+            ("Отчёт", "График и сводка", "layout-dashboard", "good"),
+            ("Мониторинг", "Сигнал об отклонении", "sparkles", "fix"),
         ], 3),
     },
     {
         "sec": 1, "title": "Две цифры продаж",
-        "lead": "Разные определения могут дать разные ответы на один вопрос.",
-        "visual": numbers([("370", "регистраций за период", "info"), ("350", "действующих ДДУ", "good")])
-                  + '<div class="sc-foot">20 договоров этой когорты расторгнуты к дате среза</div>',
+        "lead": "Одно слово «продажи» — разные определения и ответы.",
+        "visual": '<div class="layer-label">Семантический слой</div>'
+                  + numbers([("370", "зарегистрировано за январь–октябрь 2026", "info"),
+                             ("350", "из них действуют на 31 октября 2026", "good")])
+                  + '<div class="contract-note"><b>20</b> из этих договоров расторгнуты к срезу</div>',
     },
     {
         "sec": 2, "title": "Дерево показывает, где возникло отклонение",
-        "lead": "Арифметическое разложение помогает найти участки, на которые стоит посмотреть.",
+        "lead": "План и факт — по одной метрике, за один период и на дату среза.",
         "visual": metric_tree(),
     },
     {
         "sec": 2, "title": "Контекст меняет смысл цифр",
-        "lead": "С какой версией плана сравниваем результат?",
-        "visual": steps([("Исходный план", "Дата запуска продаж", "info"),
-                         ("Перенос", "Изменение даты", "fix"),
-                         ("Начало продаж", "Фактический старт", "good")]),
+        "lead": "С какой версией плана сравниваем результат проекта В?",
+        "visual": '<div class="layer-label">Контекстный слой</div>'
+                  + steps([("Исходный план", "Дата запуска", "info"),
+                           ("Перенос", "Дата изменилась", "fix"),
+                           ("Начало продаж", "Фактический старт", "good")])
+                  + '<div class="context-note">Первоначальный план продаж не пересмотрен</div>',
     },
     {
         "sec": 2, "title": "Причинные гипотезы",
@@ -158,26 +182,26 @@ SLIDES = [
         "sec": 2, "title": "Качество данных",
         "lead": "Быстрый ответ зависит от того, что попало в источники.",
         "visual": cards([
-            ("Карточка CRM ≠ покупатель", "", "users", "info"),
+            ("1 покупатель → 2 карточки CRM", "", "users", "info"),
             ("Пустое поле ≠ ноль", "", "circle-help", "fix"),
-            ("Дата события ≠ дата записи", "", "calendar", "bad"),
+            ("Дата события ≠ дата знания", "", "calendar", "bad"),
         ], 3),
     },
     {
         "sec": 3, "title": "Как проверять ответы ИИ",
-        "lead": "Один вопрос, те же данные и последовательно добавленные знания.",
-        "visual": cards([
-            ("Данные", "Один и тот же доступ", "database", "mute"),
-            ("Определения", "Что и как считаем", "list-checks", "info"),
-            ("Контекст", "Что происходило в бизнесе", "layers", "good"),
-            ("Причинные гипотезы", "Что и как проверяем", "git-branch", "own"),
-        ], 4),
+        "lead": "Один вопрос, те же данные и инструменты. Добавляем знания по шагам.",
+        "visual": '<div class="layer-label">План проверки</div>'
+                  + steps([("База", "", "mute"), ("+ Определения", "", "info"),
+                           ("+ Контекст", "", "good"), ("+ Гипотезы", "", "own")])
+                  + '<div class="test-note">Правильность · источники · ограничения</div>',
     },
     {
-        "sec": 3, "title": "Ошибка во времени записи",
-        "lead": "При подготовке данных обнаружилось противоречие в датах.",
-        "visual": numbers([("2025", "время записи", "info"), ("2026", "сведения внутри", "bad")])
-                  + '<div class="sc-foot">Дата записи и дата появления сведений должны согласовываться</div>',
+        "sec": 3, "title": "Когда узнали о событии?",
+        "lead": "Что было известно руководителю на дату отчёта?",
+        "visual": steps([("Событие", "Произошло", "info"),
+                         ("Запись", "Появилась в CRM", "fix"),
+                         ("Отчёт", "Данные стали доступны", "good")])
+                  + '<div class="context-note">Время события ≠ время знания</div>',
     },
     {
         "sec": 3, "title": "Нет записи о встрече",
@@ -185,7 +209,8 @@ SLIDES = [
         "visual": cards([
             ("Встречи не было?", "", "circle-help", "info"),
             ("Встречу не внесли?", "", "circle-help", "fix"),
-        ], 2),
+            ("Проверить", "Журнал встреч или выборочная сверка", "search", "good"),
+        ], 3),
     },
     {
         "sec": 3, "title": "Где применять ИИ",
@@ -193,7 +218,7 @@ SLIDES = [
         "visual": cards([
             ("Ускорять", "Запросы, графики, сводки", "sparkles", "good"),
             ("Проверять", "Метрики, источники, выводы", "shield-check", "info"),
-            ("Обосновывать", "Причины и эффекты", "search", "fix"),
+            ("Не объявлять причиной", "Без подходящей проверки", "triangle-alert", "fix"),
         ], 3),
     },
     {
