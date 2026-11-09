@@ -159,7 +159,11 @@
     }
   });
   let touchX = null;
-  stage.addEventListener("touchstart", event => { touchX = event.changedTouches[0].clientX; }, {passive:true});
+  stage.addEventListener("touchstart", event => {
+    // На телефоне график прокручивается горизонтально, не перелистывая слайд.
+    const chart = event.target.closest(".effort");
+    touchX = chart && chart.scrollWidth > chart.clientWidth ? null : event.changedTouches[0].clientX;
+  }, {passive:true});
   stage.addEventListener("touchend", event => {
     if (touchX === null) return;
     const delta = event.changedTouches[0].clientX - touchX;
