@@ -25,3 +25,5 @@ python3 -B build.py
 ```
 
 Использованы шрифты Onest и IBM Plex Mono и иконки Lucide. Тексты лицензий находятся в `assets/fonts/` и `assets/icons/`.
+
+Публикация на GitHub Pages настроена через `.github/workflows/pages.yml`: в сайт попадает только автономный `index.html`.
