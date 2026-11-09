@@ -1,7 +1,7 @@
 <div class="owner-dashboard" role="region" aria-label="Демонстрационный дашборд руководителя девелопера">
   <header class="od-head">
-    <div class="od-heading"><div class="od-brand"><span class="od-brandmark">J</span><span>JETMETRICS <i>/</i> ОБЗОР ПОРТФЕЛЯ</span></div>
-      <div class="od-title">Продажи и портфель</div><div class="od-subtitle">Руководителю девелопера <span>·</span> <b data-od="period-label">октябрь 2026</b></div></div>
+    <div class="od-heading"><div class="od-brand"><span class="od-brandmark">J</span><span>JETMETRICS <i>/</i> КОММЕРЧЕСКИЙ БЛОК <i>/</i> ОБЗОР ПОРТФЕЛЯ</span></div>
+      <div class="od-title">Продажи и портфель</div><div class="od-subtitle">Показатели девелопера <span>·</span> <b data-od="period-label">октябрь 2026</b></div></div>
     <div class="od-controls">
       <label><span>ПРОЕКТ</span><select class="od-project" aria-label="Фильтр по проекту"><option value="all">Все проекты</option><option value="А">Проект А</option><option value="Б">Проект Б</option><option value="В">Проект В</option></select></label>
       <label><span>ПЕРИОД</span><select class="od-period" aria-label="Фильтр по месяцу"><option value="0">Май 2026</option><option value="1">Июнь 2026</option><option value="2">Июль 2026</option><option value="3">Август 2026</option><option value="4">Сентябрь 2026</option><option value="5" selected>Октябрь 2026</option></select></label>
@@ -12,35 +12,71 @@
     <span class="od-demo">ДЕМО · ВСТРОЕННЫЕ ДАННЫЕ</span>
   </div>
   <div class="od-kpis">
-    <article class="od-kpi"><span class="od-kpi-label">Зарегистрировано ДДУ</span><strong data-od="deals">—</strong><span class="od-kpi-note" data-od="deal-note">—</span><span class="od-kpi-icon">≡</span></article>
-    <article class="od-kpi"><span class="od-kpi-label">Выполнение плана</span><strong data-od="fulfilment">—</strong><span class="od-kpi-note" data-od="plan-note">—</span><span class="od-kpi-icon">◎</span></article>
-    <article class="od-kpi"><span class="od-kpi-label">Сумма договоров</span><strong data-od="contracts">—</strong><span class="od-kpi-note">млн ₽ · стоимость ДДУ</span><span class="od-kpi-icon">₽</span></article>
-    <article class="od-kpi"><span class="od-kpi-label">Поступления на эскроу</span><strong data-od="escrow">—</strong><span class="od-kpi-note">млн ₽ · за месяц</span><span class="od-kpi-icon">▥</span></article>
-    <article class="od-kpi od-kpi-feature"><span class="od-kpi-label">Доступно квартир</span><strong data-od="available">—</strong><span class="od-kpi-note" data-od="inventory-note">—</span><span class="od-kpi-icon">⌂</span></article>
+    <article class="od-kpi"><span class="od-kpi-label">Регистрации ДДУ</span><strong data-od="deals">—</strong><span class="od-kpi-note" data-od="deal-note">—</span><span class="od-spark" data-spark="deals"></span></article>
+    <article class="od-kpi"><span class="od-kpi-label">Выполнение плана</span><strong data-od="fulfilment">—</strong><span class="od-kpi-note" data-od="plan-note">—</span><span class="od-spark" data-spark="fulfilment"></span></article>
+    <article class="od-kpi"><span class="od-kpi-label">Сумма ДДУ, млн ₽</span><strong data-od="contracts">—</strong><span class="od-kpi-note">зарегистрировано</span><span class="od-spark" data-spark="contracts"></span></article>
+    <article class="od-kpi"><span class="od-kpi-label">Средний ДДУ, млн ₽</span><strong data-od="avg-price">—</strong><span class="od-kpi-note">средняя стоимость</span><span class="od-spark" data-spark="avg-price"></span></article>
+    <article class="od-kpi"><span class="od-kpi-label">Эскроу, млн ₽</span><strong data-od="escrow">—</strong><span class="od-kpi-note">поступления за месяц</span><span class="od-spark" data-spark="escrow"></span></article>
+    <article class="od-kpi"><span class="od-kpi-label">Обращения CRM</span><strong data-od="leads">—</strong><span class="od-kpi-note">входящий поток</span><span class="od-spark" data-spark="leads"></span></article>
+    <article class="od-kpi"><span class="od-kpi-label">Брони CRM</span><strong data-od="bookings">—</strong><span class="od-kpi-note">события за месяц</span><span class="od-spark" data-spark="bookings"></span></article>
+    <article class="od-kpi od-kpi-feature"><span class="od-kpi-label">Доступно квартир</span><strong data-od="available">—</strong><span class="od-kpi-note" data-od="inventory-note">—</span><span class="od-stock-mini" data-od="stock-mini"></span></article>
   </div>
   <div class="od-grid">
     <section class="od-panel od-trend" aria-label="Динамика ДДУ по месяцам">
-      <div class="od-panel-head"><div><h3>Динамика продаж</h3><p>Зарегистрированные ДДУ · май–октябрь 2026</p></div><div class="od-legend"><span><i class="fact"></i>Факт</span><span><i class="plan"></i>План</span></div></div>
-      <div class="od-chart" data-od="chart"></div>
+      <div class="od-panel-head"><div><h3>Динамика продаж</h3><p>ДДУ · май–октябрь 2026</p></div><div class="od-legend"><span><i class="fact"></i>Факт</span><span><i class="plan"></i>План</span></div></div>
+      <div class="od-chart" data-od="chart"></div><div class="od-panel-bottom"><span>За 6 месяцев</span><strong data-od="six-month-deals">—</strong><span data-od="six-month-plan">—</span></div>
     </section>
     <section class="od-panel od-projects" aria-label="Выполнение плана по проектам">
-      <div class="od-panel-head"><div><h3>Продажи по проектам</h3><p>Факт к плану · выбранный месяц</p></div><span class="od-chip">ДДУ</span></div>
+      <div class="od-panel-head"><div><h3>План-факт по проектам</h3><p>Регистрации за выбранный месяц</p></div><span class="od-chip">ДДУ</span></div>
       <div class="od-project-rows" data-od="project-rows"></div>
       <div class="od-project-footer"><span>Итого</span><strong data-od="project-total">—</strong></div>
     </section>
+    <section class="od-panel od-stock" aria-label="Квартирный фонд">
+      <div class="od-panel-head"><div><h3>Квартирный фонд</h3><p>Срез на 31 октября 2026</p></div><span class="od-chip">ШАХМАТКА</span></div>
+      <div class="od-donut-layout"><div class="od-stock-donut" data-od="stock-donut"></div><div class="od-stock-summary"><strong data-od="stock-total">—</strong><span>квартир в портфеле</span><b data-od="stock-available">—</b><span>доступно к продаже</span></div></div>
+      <div class="od-stock-legend" data-od="stock-legend"></div><div class="od-stock-bar" data-od="stock-bar"></div>
+    </section>
+    <section class="od-panel od-funds" aria-label="Стоимость ДДУ и поступления на эскроу">
+      <div class="od-panel-head"><div><h3>Договоры и эскроу</h3><p>Суммы за месяц · млн ₽</p></div><div class="od-legend"><span><i class="contract"></i>ДДУ</span><span><i class="escrow"></i>Эскроу</span></div></div>
+      <div class="od-finance-chart" data-od="funds-chart"></div><div class="od-panel-foot">Разные события; поступления не обязаны относиться к ДДУ месяца</div>
+    </section>
     <section class="od-panel od-activity" aria-label="Спрос и активность CRM">
       <div class="od-panel-head"><div><h3>Спрос и активность</h3><p>События CRM · выбранный месяц</p></div><span class="od-chip">CRM</span></div>
-      <div class="od-activity-stats"><div><strong data-od="leads">—</strong><span>обращений</span></div><div><strong data-od="meetings">—</strong><span>встреч</span></div><div><strong data-od="bookings">—</strong><span>броней</span></div></div>
+      <div class="od-activity-stats"><div><strong data-od="activity-leads">—</strong><span>обращений</span></div><div><strong data-od="meetings">—</strong><span>встреч</span></div><div><strong data-od="activity-bookings">—</strong><span>броней</span></div></div>
       <div class="od-channel-head"><span>Собственный вход <b data-od="own">—</b></span><span>Агентский <b data-od="agency">—</b></span></div>
       <div class="od-channel-bar"><i data-od="own-bar"></i><i data-od="agency-bar"></i></div>
-      <div class="od-panel-foot">Разные события месяца, не конверсия одной когорты</div>
+      <div class="od-mini-caption">ОБРАЩЕНИЯ · МАЙ–ОКТЯБРЬ</div><div class="od-activity-spark" data-od="activity-spark"></div><div class="od-panel-foot">События месяца, не конверсия одной когорты</div>
     </section>
-    <section class="od-panel od-stock" aria-label="Квартирный фонд">
-      <div class="od-panel-head"><div><h3>Квартирный фонд</h3><p>Состояние на 31 октября 2026</p></div><span class="od-chip">ШАХМАТКА</span></div>
-      <div class="od-stock-line"><strong data-od="stock-total">—</strong><span>квартир<br>в портфеле</span><div class="od-stock-highlight"><b data-od="stock-available">—</b><span>доступно</span></div></div>
-      <div class="od-stock-bar" data-od="stock-bar"></div>
-      <div class="od-stock-legend" data-od="stock-legend"></div>
+    <section class="od-panel od-matrix" aria-label="Матрица регистраций по проектам и месяцам">
+      <div class="od-panel-head"><div><h3>Продажи по месяцам</h3><p>ДДУ · проект × месяц</p></div><span class="od-chip">6 МЕС.</span></div>
+      <div class="od-heatmap" data-od="heatmap"></div><div class="od-panel-foot">Нажмите на ячейку для выбора проекта и месяца</div>
+    </section>
+    <section class="od-panel od-ticket" aria-label="Средняя стоимость зарегистрированного ДДУ">
+      <div class="od-panel-head"><div><h3>Средняя стоимость ДДУ</h3><p>Сумма договоров / число ДДУ</p></div><span class="od-chip">₽ / ДДУ</span></div>
+      <div class="od-ticket-value"><strong data-od="ticket-value">—</strong><span>млн ₽</span><b data-od="ticket-change">—</b></div>
+      <div class="od-ticket-chart" data-od="ticket-chart"></div><div class="od-panel-foot">Состав квартир по месяцам может отличаться</div>
+    </section>
+    <section class="od-panel od-channel" aria-label="Каналы обращений CRM">
+      <div class="od-panel-head"><div><h3>Каналы обращений</h3><p>Структура входящего потока</p></div><span class="od-chip">CRM</span></div>
+      <div class="od-donut-layout"><div class="od-channel-donut" data-od="channel-donut"></div><div class="od-channel-summary"><strong data-od="channel-total">—</strong><span>обращений</span><b data-od="channel-agency-pct">—</b><span>доля агентского канала</span></div></div>
+      <div class="od-channel-legend"><span><i></i>Собственный <b data-od="channel-own">—</b></span><span><i></i>Агентский <b data-od="channel-agency">—</b></span></div>
+    </section>
+    <section class="od-panel od-cumulative" aria-label="Накопленные регистрации ДДУ и план">
+      <div class="od-panel-head"><div><h3>Накопительный итог</h3><p>ДДУ и план · май–октябрь</p></div><div class="od-legend"><span><i class="fact"></i>Факт</span><span><i class="plan"></i>План</span></div></div>
+      <div class="od-cumulative-chart" data-od="cumulative-chart"></div><div class="od-panel-foot">С начала показанного периода</div>
+    </section>
+    <section class="od-panel od-structure" aria-label="Структура регистраций ДДУ по проектам">
+      <div class="od-panel-head"><div><h3>Структура продаж</h3><p>Регистрации по проектам</p></div><div class="od-structure-legend"><span>А</span><span>Б</span><span>В</span></div></div>
+      <div class="od-structure-chart" data-od="structure-chart"></div><div class="od-panel-foot">Май–октябрь 2026 · зарегистрированные ДДУ</div>
+    </section>
+    <section class="od-panel od-cash-projects" aria-label="Поступления на эскроу по проектам">
+      <div class="od-panel-head"><div><h3>Эскроу по проектам</h3><p>Поступления за месяц · млн ₽</p></div><span class="od-chip">БАНК</span></div>
+      <div class="od-cash-rows" data-od="cash-rows"></div><div class="od-project-footer"><span>Итого за месяц</span><strong data-od="cash-total">—</strong></div>
+    </section>
+    <section class="od-panel od-stock-projects" aria-label="Состояние квартир по проектам">
+      <div class="od-panel-head"><div><h3>Квартиры по проектам</h3><p>Состояние на 31 октября</p></div><span class="od-chip">ЛОТЫ</span></div>
+      <div class="od-stock-table" data-od="stock-table"></div><div class="od-panel-foot">Прочее: ожидают регистрации и не выведены</div>
     </section>
   </div>
-  <div class="od-footer"><span>ДДУ и план — регистрации за период · остатки — на дату среза</span></div>
+  <div class="od-footer"><span>План и ДДУ — регистрации за период · остатки — на дату среза · денежные потоки не равны сумме договоров</span><span>◉ 5 ИСТОЧНИКОВ</span></div>
 </div>

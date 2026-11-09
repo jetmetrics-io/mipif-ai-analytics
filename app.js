@@ -161,7 +161,7 @@
   let touchX = null;
   stage.addEventListener("touchstart", event => {
     // На телефоне широкие графики прокручиваются, не перелистывая слайд.
-    const chart = event.target.closest(".effort,.od-chart");
+    const chart = event.target.closest(".effort,.od-chart,.od-finance-chart,.od-ticket-chart,.od-cumulative-chart,.od-structure-chart");
     touchX = chart && chart.scrollWidth > chart.clientWidth ? null : event.changedTouches[0].clientX;
   }, {passive:true});
   stage.addEventListener("touchend", event => {
